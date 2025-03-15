@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
@@ -27,27 +27,37 @@ def home():
 
 @app.route('/register', methods=['POST'])
 def register():
-    first_name = request.form['first_name']
-    middle_name = request.form['middle_name']
-    last_name = request.form['last_name']
-    gender = request.form['gender']
-    dob = request.form['dob']
-    mobile = request.form['mobile']
-    email = request.form['email']
-    password = request.form['password']
-    content = request.form['content']
+    try:
+        # Debugging: Print form data to terminal
+        print("Received Form Data:", request.form)
 
-    # Save user data to database
-    conn = sqlite3.connect('users.db')
-    cursor = conn.cursor()
-    cursor.execute('''INSERT INTO users 
-                      (first_name, middle_name, last_name, gender, dob, mobile, email, password, content) 
-                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''', 
-                   (first_name, middle_name, last_name, gender, dob, mobile, email, password, content))
-    conn.commit()
-    conn.close()
+        first_name = request.form.get('first_name')
+        middle_name = request.form.get('middle_name', '')  # Default to empty if missing
+        last_name = request.form.get('last_name')
+        gender = request.form.get('gender')
+        dob = request.form.get('dob')
+        mobile = request.form.get('mobile')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        content = request.form.get('content', '')
 
-    return "Registration Successful! Your data has been stored in the database."
+        # Save user data to database
+        conn = sqlite3.connect('users.db')
+        cursor = conn.cursor()
+        cursor.execute('''INSERT INTO users 
+                          (first_name, middle_name, last_name, gender, dob, mobile, email, password, content) 
+                          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''', 
+                       (first_name, middle_name, last_name, gender, dob, mobile, email, password, content))
+        conn.commit()
+        conn.close()
+
+        print("✅ Data stored successfully in the database.")  # Debug message
+        return redirect(url_for('view_users'))  # Redirect to the users list
+
+    except Exception as e:
+        print("❌ Error storing data:", e)  # Print error in terminal
+        return "An error occurred while storing data."
+
 @app.route('/users')
 def view_users():
     conn = sqlite3.connect('users.db')
@@ -57,7 +67,6 @@ def view_users():
     conn.close()
     
     return render_template('users.html', users=users)
-
 
 if __name__ == '__main__':
     init_db()  # Initialize the database
