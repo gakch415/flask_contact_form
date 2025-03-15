@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title> 
+</head>
+<body style="background-color: pink;">
+
+    <fieldset style="background-color: yellow;">
+        <center><marquee> ***** To Access This Website, You Need To Register ***** </marquee></center>
+    </fieldset>
+    <br>
+
+    <fieldset> 
+        <legend> Fill The Details: </legend>
+        <center>
+        <form action="/register" method="POST">
+            <br>
+            <label for="first_name">First Name:</label>
+            <input type="text" name="first_name" required autocomplete="off" placeholder="Enter your first name">
+
+            <label for="middle_name">Middle Name:</label>
+            <input type="text" name="middle_name" required autocomplete="off" placeholder="Enter your middle name">
+
+            <label for="last_name">Last Name:</label>
+            <input type="text" name="last_name" required autocomplete="off" placeholder="Enter your last name">
+            <br><br>
+            <hr>
+
+            <label for="gender">Gender:</label>
+            <label>Male</label>
+            <input type="radio" name="gender" value="Male" required>
+            <label>Female</label>
+            <input type="radio" name="gender" value="Female">
+            <label>Others</label>
+            <input type="radio" name="gender" value="Others">
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" name="dob" required>
+            <br><br>
+            <hr>
+
+            <label for="mobile">Mobile No:</label>
+            <input type="text" name="mobile" required autocomplete="off" placeholder="Enter mobile number">
+
+            <label for="email">E-mail:</label>
+            <input type="email" name="email" required autocomplete="off" placeholder="Enter your email">
+            <br><br>
+            <hr>
+
+            <label for="password">New Password:</label>
+            <input type="password" name="password" required autocomplete="off" placeholder="Enter new password">
+
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" name="confirm_password" required autocomplete="off" placeholder="Confirm new password">
+            <br><br>
+            <hr>
+
+            <label for="content">Choose The Content You Like:</label>
+            <select name="content">
+                <option>----Select----</option>
+                <option>Marvel</option>
+                <option>DC</option>
+                <option>Power Rangers</option>
+            </select>
+            <br><br>
+            <hr>
+
+            <label for="agree">I agree to the terms and conditions</label>
+            <input type="checkbox" name="agree" required>
+            <br><br>
+
+            <button type="submit">Register</button>
+        </form>
+    </fieldset>
+
+</body>
+</html>
